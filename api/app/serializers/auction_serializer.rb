@@ -13,20 +13,20 @@ class AuctionSerializer < ActiveModel::Serializer
                 )
   end
 
-  has_many :bidder
+  # has_many :bidder
   class ReviewSerializer < ActiveModel::Serializer
       attributes( :id,
                   :body,
                   :rating,
                   :created_at,
                   :updated_at,
-                  :user_id,
-                  :bidder_full_name
+                  :user_id
+                  # :bidder_full_name
                 )
-      def bidder_full_name
-        # To get the model instance that's being serialized,
-        #   use `object` instead of `self`
-        object.user&.full_name
-      end
+      # def bidder_full_name
+      #   # To get the model instance that's being serialized,
+      #   #   use `object` instead of `self`
+      #   object.user&.full_name
+      # end
   end
 end

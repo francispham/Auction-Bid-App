@@ -51,7 +51,7 @@ const Bid = {
     }).then(res => res.json());
   },
   create(params) {
-    return fetch(`${BASE_URL}/auctions/2/bids`, {
+  return fetch(`${BASE_URL}/auctions/15/bids`, {
       headers: {
         Authorization: getJWT(),
         'Content-Type': 'application/json'

@@ -11,11 +11,8 @@ class AuctionShowPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      auction: {},
-      loading: true
+      auction: {}
     }
-    // this.delete = this.delete.bind(this);
-    // this.deleteBid = this.deleteBid.bind(this);
   }
 
   componentDidMount () {
@@ -26,36 +23,18 @@ class AuctionShowPage extends Component {
       .then(
         auction => {
           this.setState({
-            auction: auction,
-            loading: false
+            auction: auction
           })
         }
       )
   }
-  // delete() {
-  //   this.setState({
-  //     auction: {}
-  //   });
-  // }
-
-  // deleteBid (bidId) {
-  //   const {auction} = this.state;
-  //   const {bids} = auction;
-  //
-  //   this.setState({
-  //     auction: {
-  //       ...auction,
-  //       bids: bids.filter(bid => bid.id !== bidId)
-  //     }
-  //   })
-  // }
 
   createBid (bidParams) {
     Bid
       .create(bidParams)
       .then (data => {
-          const {id} =data;
-          this.props.history.push(`/auctions/${id}`);
+          const { id, auctionId } =data;
+          this.props.history.push(`/auctions/${auctionId}`);
         })
   }
 
@@ -75,7 +54,6 @@ class AuctionShowPage extends Component {
       <h2>Bids</h2>
       <BidList
         bids={bids}
-        // onBidDeleteClick = {this.deleteBid}
       />
     </div>)
 
