@@ -35,6 +35,32 @@ const Auction = {
     }).then(res => res.json());
   }
 };
+const Bid = {
+  all() {
+    return fetch(`${BASE_URL}/auctions`, {
+      headers: {
+        Authorization: getJWT()
+      }
+    }).then(res => res.json());
+  },
+  one(id) {
+    return fetch(`${BASE_URL}/auctions/${id}`, {
+      headers: {
+        Authorization: getJWT()
+      }
+    }).then(res => res.json());
+  },
+  create(params) {
+    return fetch(`${BASE_URL}/auctions/2/bids`, {
+      headers: {
+        Authorization: getJWT(),
+        'Content-Type': 'application/json'
+      },
+      method: 'POST',
+      body: JSON.stringify(params)
+    }).then(res => res.json());
+  }
+};
 
 const Token = {
   create(params) {
@@ -72,4 +98,4 @@ const User = {
   }
 }
 
-export { Auction };
+export { Auction, Bid, User, Token };

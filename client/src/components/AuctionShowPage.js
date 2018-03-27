@@ -1,30 +1,32 @@
 import React, {Component} from 'react';
 import AuctionDetails from './AuctionDetails';
-// import ReviewList from './ReviewList';
-// import ReviewDetails from './ReviewDetails';
-import {Auction} from '../lib/requests';
+import BidList from './BidList';
+import BidDetails from './BidDetails';
+import { Auction, Bid } from '../lib/requests';
+import BidForm from './BidForm';
+
 
 class AuctionShowPage extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      product: {},
+      auction: {},
       loading: true
     }
     // this.delete = this.delete.bind(this);
-    // this.deleteReview = this.deleteReview.bind(this);
+    // this.deleteBid = this.deleteBid.bind(this);
   }
 
   componentDidMount () {
-    const productId = this.props.match.params.id;
+    const auctionId = this.props.match.params.id;
 
     Auction
-      .one(productId)
+      .one(auctionId)
       .then(
-        product => {
+        auction => {
           this.setState({
-            product: product,
+            auction: auction,
             loading: false
           })
         }
@@ -32,36 +34,49 @@ class AuctionShowPage extends Component {
   }
   // delete() {
   //   this.setState({
-  //     product: {}
+  //     auction: {}
   //   });
   // }
 
-  // deleteReview (reviewId) {
-  //   const {product} = this.state;
-  //   const {reviews} = product;
+  // deleteBid (bidId) {
+  //   const {auction} = this.state;
+  //   const {bids} = auction;
   //
   //   this.setState({
-  //     product: {
-  //       ...product,
-  //       reviews: reviews.filter(review => review.id !== reviewId)
+  //     auction: {
+  //       ...auction,
+  //       bids: bids.filter(bid => bid.id !== bidId)
   //     }
   //   })
   // }
 
+  createBid (bidParams) {
+    Bid
+      .create(bidParams)
+      .then (data => {
+          const {id} =data;
+          this.props.history.push(`/auctions/${id}`);
+        })
+  }
+
   render() {
     const {
-      reviews,
-      ...product
-    } = this.state.product;
+      bids,
+      ...auction
+    } = this.state.auction;
 
 
     return (<div>
-      <AuctionDetails {...product}/>
-      {/* <h2>Reviews</h2>
-      <ReviewList
-        reviews={reviews}
-        onReviewDeleteClick = {this.deleteReview}
-      /> */}
+      <AuctionDetails {...auction}/>
+      <h2>Add Bid</h2>
+      <BidForm
+        onSubmit={this.createBid}
+      />
+      <h2>Bids</h2>
+      <BidList
+        bids={bids}
+        // onBidDeleteClick = {this.deleteBid}
+      />
     </div>)
 
   }
