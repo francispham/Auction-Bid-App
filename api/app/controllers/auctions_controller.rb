@@ -7,14 +7,15 @@ class AuctionsController < ApplicationController
   end
 
   def show
-    render json: @auction
+    bids = @auction.bids
+    render json: {auction: @auction, bids: bids}
   end
 
   def create
-    auction = Auction.new auction_params
-    # auction.user = current_user
-    auction.save!
-    render json: {id: auction.id}
+    @auction = Auction.new auction_params
+    @auction.user = current_user
+    @auction.save!
+    render json: {id: @auction.id}
   end
 
   def edit

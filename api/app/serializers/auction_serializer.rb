@@ -16,8 +16,7 @@ class AuctionSerializer < ActiveModel::Serializer
   # has_many :bidder
   class ReviewSerializer < ActiveModel::Serializer
       attributes( :id,
-                  :body,
-                  :rating,
+                  :bid_price,
                   :created_at,
                   :updated_at,
                   :user_id

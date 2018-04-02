@@ -35,23 +35,10 @@ const Auction = {
     }).then(res => res.json());
   }
 };
+
 const Bid = {
-  all() {
-    return fetch(`${BASE_URL}/auctions`, {
-      headers: {
-        Authorization: getJWT()
-      }
-    }).then(res => res.json());
-  },
-  one(id) {
-    return fetch(`${BASE_URL}/auctions/${id}`, {
-      headers: {
-        Authorization: getJWT()
-      }
-    }).then(res => res.json());
-  },
-  create(params) {
-  return fetch(`${BASE_URL}/auctions/15/bids`, {
+  create(params, auction_id) {
+  return fetch(`${BASE_URL}/auctions/${auction_id}/bids`, {
       headers: {
         Authorization: getJWT(),
         'Content-Type': 'application/json'

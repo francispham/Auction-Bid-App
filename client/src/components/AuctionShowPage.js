@@ -5,14 +5,15 @@ import BidDetails from './BidDetails';
 import { Auction, Bid } from '../lib/requests';
 import BidForm from './BidForm';
 
-
 class AuctionShowPage extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      auction: {}
-    }
+      auction: {},
+      bids: []
+    };
+    this.createBid = this.createBid.bind(this)
   }
 
   componentDidMount () {
@@ -21,29 +22,36 @@ class AuctionShowPage extends Component {
     Auction
       .one(auctionId)
       .then(
-        auction => {
+        data => {
           this.setState({
-            auction: auction
+            auction: data.auction,
+            bids: data.bids
           })
         }
       )
   }
 
-  createBid (bidParams) {
+  createBid (params) {
+    const auctionId = this.props.match.params.id;
     Bid
-      .create(bidParams)
+      .create(params, auctionId)
       .then (data => {
-          const { id, auctionId } =data;
-          this.props.history.push(`/auctions/${auctionId}`);
+        const { auctionId } = data;
+        return Auction.one(auctionId)
+      })
+      .then(data => {
+        this.setState({
+          auction: data.auction,
+          bids: data.bids
         })
+      });
   }
 
-  render() {
-    const {
-      bids,
-      ...auction
-    } = this.state.auction;
 
+  render() {
+    const {...auction} = this.state.auction;
+    const {bids} = this.state;
+    // console.log(this.state.bids)
 
     return (<div>
       <AuctionDetails {...auction}/>
@@ -52,6 +60,7 @@ class AuctionShowPage extends Component {
         onSubmit={this.createBid}
       />
       <h2>Bids</h2>
+      {/* <p>{bids}</p> */}
       <BidList
         bids={bids}
       />

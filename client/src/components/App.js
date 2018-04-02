@@ -13,11 +13,9 @@ import AuthRoute from './AuthRoute';
 class App extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       user: null
     };
-
     this.signIn = this.signIn.bind(this);
     this.signOut = this.signOut.bind(this);
   }
@@ -52,7 +50,7 @@ class App extends Component {
         <NavBar user={user} onSignOut={this.signOut}/>
         <Switch>
           <Route exact="exact" path="/" component={Home}/>
-          <AuthRoute isAuthenticated={this.isSignedIn()} exact path="/auctions" component={AuctionIndexPage}/>
+          <AuthRoute isAuthenticated={this.isSignedIn()} exact="exact" path="/auctions" component={AuctionIndexPage}/>
           <AuthRoute isAuthenticated={this.isSignedIn()} path="/auctions/new" component={AuctionNewPage}/>
           <AuthRoute isAuthenticated={this.isSignedIn()} path="/auctions/:id" component={AuctionShowPage}/>
           <Route path="/sign_in" render={props => (<SignInPage {...props} onSignIn={this.signIn}/>)}/>
