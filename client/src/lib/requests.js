@@ -34,8 +34,8 @@ const Auction = {
       body: JSON.stringify(params)
     }).then(res => res.json());
   },
-  destroy() {
-    return fetch(`${BASE_URL}/auctions`, {
+  destroy(id) {
+    return fetch(`${BASE_URL}/auctions/${id}`, {
       headers: {
         Authorization: getJWT(),
         'Content-Type': 'application/json',
