@@ -33,6 +33,16 @@ const Auction = {
       method: 'POST',
       body: JSON.stringify(params)
     }).then(res => res.json());
+  },
+  destroy() {
+    return fetch(`${BASE_URL}/auctions`, {
+      headers: {
+        Authorization: getJWT(),
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      method: 'DELETE'
+    })
   }
 };
 

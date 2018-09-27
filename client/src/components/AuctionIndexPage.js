@@ -23,8 +23,10 @@ class AuctionIndexPage extends Component {
     const auctionId = parseInt(event.currentTarget.dataset.auctionId, 10);
     console.log(auctionId)
     const newAuctions = this.state.auctions.filter(auction => auction.id !== auctionId);
-    this.setState({auctions: newAuctions});
-  }
+    Auction.destroy().then(auctions => {
+      this.setState({auctions: newAuctions});
+  });
+}
 
   render() {
     return (<div>

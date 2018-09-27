@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import AuctionDetails from './AuctionDetails';
 import BidList from './BidList';
-import BidDetails from './BidDetails';
 import { Auction, Bid } from '../lib/requests';
 import BidForm from './BidForm';
 
@@ -60,7 +59,6 @@ class AuctionShowPage extends Component {
         onSubmit={this.createBid}
       />
       <h2>Bids</h2>
-      {/* <p>{bids}</p> */}
       <BidList
         bids={bids}
       />
