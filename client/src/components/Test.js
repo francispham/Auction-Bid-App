@@ -28,6 +28,7 @@ class Test extends React.Component {
       text: newText
     })
   }
+
   render() {
     return (
       <div>
@@ -39,8 +40,7 @@ class Test extends React.Component {
         Text: {this.state.text}
         <button onClick={this.changeText}>Change</button>
       </div>
-  )
-  }
-}
+  )};
+};
 
 export default Test;
